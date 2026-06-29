@@ -1,0 +1,35 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+
+## Visual Studio
+.vs/
+*.csproj.user
+*.dbmdl
+*.jfm
+
+## NuGet packages
+packages/
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+
+## Logs
+Logs/
+
+## SQLite database
+*.sqlite
+
+## Exports
+Exports/
+
+## Tooling
+_ReSharper*/
+*.resharper
