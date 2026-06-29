@@ -64,18 +64,22 @@ namespace QRcodeHelper
             cbLevel.SelectedIndex = 0;
 
             m_nicList = m_searcher.ListUpNic();
-            if (m_nicList != null)
+            if (m_nicList != null && m_nicList.Count > 0)
             {
                 for (int i = 0; i < m_nicList.Count; i++)
                 {
                     cbNics.Items.Add(m_nicList[i].NicIpAddr + "/" + m_nicList[i].NicName);
                 }
+                var lastIndex = int.Parse(ConfigurationManager.AppSettings["LastIndex"]);
+                if (lastIndex < m_nicList.Count - 1)
+                    cbNics.SelectedIndex = lastIndex;
+                else
+                    cbNics.SelectedIndex = 0;
             }
-            var lastIndex = int.Parse(ConfigurationManager.AppSettings["LastIndex"]);
-            if (lastIndex < m_nicList.Count - 1)
-                cbNics.SelectedIndex = lastIndex;
             else
-                cbNics.SelectedIndex = 0;
+            {
+                SchBtn.Enabled = false;
+            }
         }
 
         private void SchBtn_Click(object sender, EventArgs e)
@@ -212,6 +216,8 @@ namespace QRcodeHelper
         {
             if (ip != "")
             {
+                cbNics.Enabled = true;
+                SchBtn.Enabled = true;
                 SctBtn.Enabled = true;
                 cbReaders.Enabled = true;
                 cbReaders.Items.Add(ip);

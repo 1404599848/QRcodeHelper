@@ -1,4 +1,4 @@
-﻿namespace QRcodeHelper
+namespace QRcodeHelper
 {
     partial class MainForm
     {
@@ -76,6 +76,14 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = System.Drawing.Color.White;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridView1.ColumnHeadersDefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColId,
@@ -84,10 +92,29 @@
             this.ColLevel,
             this.ColIsPassed});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(220, 220, 220);
             this.dataGridView1.Location = new System.Drawing.Point(5, 116);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dataGridView1.RowsDefaultCellStyle.BackColor = System.Drawing.Color.White;
+            this.dataGridView1.RowsDefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(52, 52, 52);
+            this.dataGridView1.RowsDefaultCellStyle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridView1.RowsDefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.RowsDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(41, 128, 185);
+            this.dataGridView1.RowsDefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(242, 245, 250);
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(52, 52, 52);
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.SelectionBackColor = System.Drawing.Color.FromArgb(41, 128, 185);
+            this.dataGridView1.AlternatingRowsDefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.RowTemplate.Height = 27;
             this.dataGridView1.Size = new System.Drawing.Size(769, 454);
             this.dataGridView1.TabIndex = 0;
@@ -260,24 +287,32 @@
             // 
             // btnExport
             // 
-            this.btnExport.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnExport.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExport.FlatAppearance.BorderSize = 0;
+            this.btnExport.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnExport.ForeColor = System.Drawing.Color.White;
             this.btnExport.Location = new System.Drawing.Point(618, 47);
             this.btnExport.Name = "btnExport";
             this.btnExport.Size = new System.Drawing.Size(72, 33);
             this.btnExport.TabIndex = 1;
             this.btnExport.Text = "导出";
-            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // BtnQuery
             // 
-            this.BtnQuery.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnQuery.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.BtnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnQuery.FlatAppearance.BorderSize = 0;
+            this.BtnQuery.Font = new System.Drawing.Font("微软雅黑", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BtnQuery.ForeColor = System.Drawing.Color.White;
             this.BtnQuery.Location = new System.Drawing.Point(507, 47);
             this.BtnQuery.Name = "BtnQuery";
             this.BtnQuery.Size = new System.Drawing.Size(72, 33);
             this.BtnQuery.TabIndex = 0;
             this.BtnQuery.Text = "查询";
-            this.BtnQuery.UseVisualStyleBackColor = true;
+            this.BtnQuery.UseVisualStyleBackColor = false;
             this.BtnQuery.Click += new System.EventHandler(this.BtnQuery_Click);
             // 
             // cbReaders
@@ -293,35 +328,43 @@
             // 
             // DataText
             // 
-            this.DataText.BackColor = System.Drawing.SystemColors.Control;
+            this.DataText.BackColor = System.Drawing.Color.FromArgb(245, 246, 250);
+            this.DataText.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.DataText.Location = new System.Drawing.Point(15, 185);
             this.DataText.Margin = new System.Windows.Forms.Padding(4);
             this.DataText.MaxLength = 10;
             this.DataText.Multiline = true;
             this.DataText.Name = "DataText";
+            this.DataText.ReadOnly = true;
             this.DataText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.DataText.Size = new System.Drawing.Size(317, 62);
             this.DataText.TabIndex = 5;
             // 
             // btnOn
             // 
+            this.btnOn.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.btnOn.Enabled = false;
+            this.btnOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOn.FlatAppearance.BorderSize = 0;
+            this.btnOn.ForeColor = System.Drawing.Color.White;
             this.btnOn.Location = new System.Drawing.Point(15, 110);
             this.btnOn.Margin = new System.Windows.Forms.Padding(4);
             this.btnOn.Name = "btnOn";
             this.btnOn.Size = new System.Drawing.Size(107, 32);
             this.btnOn.TabIndex = 4;
             this.btnOn.Text = "触发";
-            this.btnOn.UseVisualStyleBackColor = true;
+            this.btnOn.UseVisualStyleBackColor = false;
             this.btnOn.Click += new System.EventHandler(this.btnON_Click);
             // 
             // SctBtn
             // 
             this.SctBtn.Appearance = System.Windows.Forms.Appearance.Button;
             this.SctBtn.AutoSize = true;
-            this.SctBtn.BackColor = System.Drawing.Color.Transparent;
+            this.SctBtn.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.SctBtn.Enabled = false;
-            this.SctBtn.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.SctBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SctBtn.FlatAppearance.BorderSize = 0;
+            this.SctBtn.ForeColor = System.Drawing.Color.White;
             this.SctBtn.Location = new System.Drawing.Point(278, 65);
             this.SctBtn.Margin = new System.Windows.Forms.Padding(4);
             this.SctBtn.Name = "SctBtn";
@@ -343,18 +386,22 @@
             // 
             // SchBtn
             // 
-            this.SchBtn.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.SchBtn.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
+            this.SchBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SchBtn.FlatAppearance.BorderSize = 0;
+            this.SchBtn.ForeColor = System.Drawing.Color.White;
             this.SchBtn.Location = new System.Drawing.Point(277, 27);
             this.SchBtn.Margin = new System.Windows.Forms.Padding(4);
             this.SchBtn.Name = "SchBtn";
             this.SchBtn.Size = new System.Drawing.Size(77, 29);
             this.SchBtn.TabIndex = 7;
             this.SchBtn.Text = "搜索";
-            this.SchBtn.UseVisualStyleBackColor = true;
+            this.SchBtn.UseVisualStyleBackColor = false;
             this.SchBtn.Click += new System.EventHandler(this.SchBtn_Click);
             // 
             // groupBox1
             // 
+            this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.btnOff);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.liveviewForm1);
@@ -366,6 +413,8 @@
             this.groupBox1.Controls.Add(this.btnOn);
             this.groupBox1.Controls.Add(this.SctBtn);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
             this.groupBox1.Location = new System.Drawing.Point(5, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(375, 575);
@@ -375,14 +424,18 @@
             // 
             // btnOff
             // 
+            this.btnOff.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.btnOff.Enabled = false;
+            this.btnOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOff.FlatAppearance.BorderSize = 0;
+            this.btnOff.ForeColor = System.Drawing.Color.White;
             this.btnOff.Location = new System.Drawing.Point(147, 110);
             this.btnOff.Margin = new System.Windows.Forms.Padding(4);
             this.btnOff.Name = "btnOff";
             this.btnOff.Size = new System.Drawing.Size(107, 32);
             this.btnOff.TabIndex = 15;
             this.btnOff.Text = "触发结束";
-            this.btnOff.UseVisualStyleBackColor = true;
+            this.btnOff.UseVisualStyleBackColor = false;
             this.btnOff.Click += new System.EventHandler(this.btnOff_Click);
             // 
             // label6
@@ -420,9 +473,12 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Controls.Add(this.panel2);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
             this.groupBox2.Location = new System.Drawing.Point(380, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(5);
@@ -467,13 +523,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             this.ClientSize = new System.Drawing.Size(1164, 585);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
+            this.MaximizeBox = true;
+            this.MinimumSize = new System.Drawing.Size(900, 500);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

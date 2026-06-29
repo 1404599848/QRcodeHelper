@@ -33,26 +33,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 QRcodeHelper/
-├── QRcodeHelper.sln                  # Visual Studio 2017 解决方案
-└── QRcodeHelper/                     # 项目目录
-    ├── Program.cs                    # 入口 — 单例互斥锁 + 全局异常处理
-    ├── MainForm.cs                   # 主界面 — 扫码枪连接/触发/断开、数据接收入库、查询导出
-    ├── MainForm.Designer.cs          # WinForms 设计器布局
-    ├── InfoFrm.cs                    # 不合格品弹窗（30秒倒计时自动关闭）
-    ├── InfoFrm.Designer.cs
-    ├── Enums.cs                      # IsPassed 枚举（通过=0, 未通过=1）
-    ├── XmlHelper.cs                  # App.config 运行时读写
-    ├── NLogHelper.cs                 # NLog 静态封装（Debug/Info/Warn/Error/Fatal）
-    ├── NLog.config                   # 日志配置：console, debugger, error_file, info 文件
-    ├── ExcelFileGenerator.cs         # 泛型 NPOI Excel 导出（Dictionary 属性名→列名映射）
-    ├── App.config                    # 仅保存 LastIndex（上次选择的网卡索引）
-    ├── packages.config               # NuGet 依赖列表
-    ├── Models/
-    │   └── QRCodeRecord.cs           # 数据模型 — QRCode, Level, CreationTime, 计算属性 IsPassed
-    ├── Services/
-    │   └── DatabaseService.cs        # SQLite 自动建库建表 + 连接工厂
-    ├── Properties/                   # Assembly info, settings, resources
-    └── dll/                          # 本地 DLL（Keyence 扫码枪 SDK、VNC 控件、通信库）
+├── Program.cs                          # 入口 — 单例互斥锁 + 全局异常处理
+├── MainForm.cs                         # 主界面 — 扫码枪连接/触发/断开、数据接收入库、查询导出
+├── MainForm.Designer.cs                # WinForms 设计器布局
+├── InfoFrm.cs                          # 不合格品弹窗（30秒倒计时自动关闭）
+├── InfoFrm.Designer.cs
+├── Enums.cs                            # IsPassed 枚举（通过=0, 未通过=1）
+├── XmlHelper.cs                        # App.config 运行时读写
+├── NLogHelper.cs                       # NLog 静态封装（Debug/Info/Warn/Error/Fatal）
+├── NLog.config                         # 日志配置：console, debugger, error_file, info 文件
+├── ExcelFileGenerator.cs               # 泛型 NPOI Excel 导出（Dictionary 属性名→列名映射）
+├── App.config                          # 仅保存 LastIndex（上次选择的网卡索引）
+├── packages.config                     # NuGet 依赖列表
+├── Models/
+│   └── QRCodeRecord.cs                 # 数据模型 — QRCode, Level, CreationTime, 计算属性 IsPassed
+├── Services/
+│   └── DatabaseService.cs              # SQLite 自动建库建表 + 连接工厂
+├── Properties/                         # Assembly info, settings, resources
+├── dll/                                # 本地非托管 DLL
+└── bin/x86/Debug/                      # 编译输出、日志、SQLite 数据库
 ```
 
 ## 扫码枪硬件配置
@@ -88,15 +87,33 @@ Dapper INSERT 到 SQLite QRCodeRecords 表
 2. 选择读码器（cbReaders）→ 点击"连接设备" → `ReaderAccessor` TCP/IP 连接 + `LiveviewForm` 实时画面
 3. "触发"（发送 `LON`）/ "触发结束"（发送 `LOFF`）
 
+## 窗体生命周期
+
+- 点击关闭按钮 → 隐藏到系统托盘（notifyIcon），并非真正退出
+- 托盘右键菜单：「显示主界面」/「退出」
+- 单实例运行 → 通过命名 `Mutex` 实现（`QRcodeHelper`）
+- SQLite 数据库：首次启动自动在 `./MyDb.sqlite` 创建 `QRCodeRecords` 表
+- 日志目录：`./Logs/info/`（Info 级别）、`./Logs/error/`（Error 级别），保留 30 天
+- 导出目录：`./Exports/`，文件命名 `二维码记录_yyyyMMddHHmmss.xls`
+
 ## 已发现的 Bug / 待修复
 
 1. **搜索状态未恢复**：搜索成功后 `SchBtn` 和 `cbNics` 未恢复可用状态（`SearchListUp` 函数缺少两行恢复代码，仅在搜索结果为空的 else 分支中恢复了）
 2. **无网卡闪退**：无可用网卡时 `cbNics.SelectedIndex` 为 -1，点击搜索直接 `IndexOutOfRangeException`（`MainForm_Load` 中未保护判断）
 3. **Liveview 画质粗糙**：`LiveviewForm` 硬编码为 `OneQuarter` 缩放 + `ImageQuality=5`，缺乏可配置性
+4. **扫码枪参数未调好时日志框显示 "error"**：过曝等问题需进 Web 界面 `http://192.168.100.100` 调曝光/增益
 
 ## 代码中值得注意的模式
 
-- `ExcelFileGenerator<T>` — 泛型类，通过反射 + NPOI 导出任意类型列表为 Excel
-- SQL 查询中使用字符串插值 `like '%{txtCode.Text}%'` — **SQL 注入风险**，此处的参数未使用 Dapper 参数化
+- `ExcelFileGenerator<T>` — 泛型类，通过反射 + NPOI 导出任意类型列表为 Excel；接受 `Dictionary<string, string>` 映射属性名→中文列名
+- SQL 查询中使用字符串插值 `like '%{txtCode.Text}%'` — **SQL 注入风险**，此处的参数未使用 Dapper 参数化（其他查询参数已使用 Dapper 匿名对象参数）
 - `IsPassed` 枚举值在 SQL 过滤时**倒置**：通过 = `AND IsPassed = 0`，未通过 = `AND IsPassed = 1`
 - `DatabaseService.TestData()` — 生成 100 条测试数据的方法，已注释未调用
+- `btnC_Click` — 测试按钮，Level 硬编码为 C（未通过），插入随机测试数据并弹窗
+
+## 可能的扩展方向
+
+- 增加 RS-232 串口通信支持（`Communication.dll` 已存在于项目中但未使用）
+- SQLite 数据库加密
+- 软件 License 验证机制
+- Liveview 画质参数可配置化
