@@ -171,18 +171,42 @@ namespace QRcodeHelper
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.cbLevel);
-            this.panel2.Controls.Add(this.dtEnd);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.dtBegin);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.cbIsPassed);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.txtCode);
-            this.panel2.Controls.Add(this.btnExport);
-            this.panel2.Controls.Add(this.BtnQuery);
+            //
+            // queryTableLayout
+            //
+            this.queryTableLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.queryTableLayout.ColumnCount = 7;
+            this.queryTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.queryTableLayout.Location = new System.Drawing.Point(0, 0);
+            this.queryTableLayout.Name = "queryTableLayout";
+            this.queryTableLayout.RowCount = 2;
+            this.queryTableLayout.Padding = new System.Windows.Forms.Padding(8, 8, 8, 4);
+            this.queryTableLayout.Size = new System.Drawing.Size(769, 93);
+            this.queryTableLayout.TabIndex = 0;
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.queryTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.queryTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            // Row 0
+            this.queryTableLayout.Controls.Add(this.label1, 0, 0);     // 二维码
+            this.queryTableLayout.Controls.Add(this.txtCode, 1, 0);
+            this.queryTableLayout.Controls.Add(this.label2, 2, 0);     // 是否通过
+            this.queryTableLayout.Controls.Add(this.cbIsPassed, 3, 0);
+            this.queryTableLayout.Controls.Add(this.label5, 4, 0);     // 判定等级
+            this.queryTableLayout.Controls.Add(this.cbLevel, 5, 0);
+            // Row 1
+            this.queryTableLayout.Controls.Add(this.label3, 0, 1);     // 时间
+            this.queryTableLayout.Controls.Add(this.dtBegin, 1, 1);
+            this.queryTableLayout.Controls.Add(this.label4, 2, 1);     // 至
+            this.queryTableLayout.Controls.Add(this.dtEnd, 3, 1);
+            this.queryTableLayout.Controls.Add(this.BtnQuery, 5, 1);
+            this.queryTableLayout.Controls.Add(this.btnExport, 6, 1);
+            this.panel2.Controls.Add(this.queryTableLayout);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(5, 23);
             this.panel2.Name = "panel2";
@@ -198,8 +222,11 @@ namespace QRcodeHelper
             this.label5.TabIndex = 11;
             this.label5.Text = "判定等级";
             // 
+            //
             // cbLevel
-            // 
+            //
+            this.cbLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbLevel.FormattingEnabled = true;
             this.cbLevel.Items.AddRange(new object[] {
@@ -214,9 +241,11 @@ namespace QRcodeHelper
             this.cbLevel.Name = "cbLevel";
             this.cbLevel.Size = new System.Drawing.Size(121, 23);
             this.cbLevel.TabIndex = 10;
-            // 
+            //
             // dtEnd
-            // 
+            //
+            this.dtEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtEnd.Location = new System.Drawing.Point(277, 51);
             this.dtEnd.Name = "dtEnd";
             this.dtEnd.Size = new System.Drawing.Size(167, 25);
@@ -230,9 +259,11 @@ namespace QRcodeHelper
             this.label4.Size = new System.Drawing.Size(22, 15);
             this.label4.TabIndex = 8;
             this.label4.Text = "至";
-            // 
+            //
             // dtBegin
-            // 
+            //
+            this.dtBegin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtBegin.Location = new System.Drawing.Point(63, 51);
             this.dtBegin.Name = "dtBegin";
             this.dtBegin.Size = new System.Drawing.Size(167, 25);
@@ -255,9 +286,11 @@ namespace QRcodeHelper
             this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 5;
             this.label2.Text = "是否通过";
-            // 
+            //
             // cbIsPassed
-            // 
+            //
+            this.cbIsPassed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbIsPassed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbIsPassed.FormattingEnabled = true;
             this.cbIsPassed.Items.AddRange(new object[] {
@@ -277,16 +310,19 @@ namespace QRcodeHelper
             this.label1.Size = new System.Drawing.Size(52, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "二维码";
-            // 
+            //
             // txtCode
-            // 
+            //
+            this.txtCode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCode.Location = new System.Drawing.Point(72, 14);
             this.txtCode.Name = "txtCode";
             this.txtCode.Size = new System.Drawing.Size(127, 25);
             this.txtCode.TabIndex = 2;
-            // 
+            //
             // btnExport
-            // 
+            //
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExport.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.FlatAppearance.BorderSize = 0;
@@ -299,9 +335,10 @@ namespace QRcodeHelper
             this.btnExport.Text = "导出";
             this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
-            // 
+            //
             // BtnQuery
-            // 
+            //
+            this.BtnQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnQuery.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.BtnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnQuery.FlatAppearance.BorderSize = 0;
@@ -314,9 +351,11 @@ namespace QRcodeHelper
             this.BtnQuery.Text = "查询";
             this.BtnQuery.UseVisualStyleBackColor = false;
             this.BtnQuery.Click += new System.EventHandler(this.BtnQuery_Click);
-            // 
+            //
             // cbReaders
-            // 
+            //
+            this.cbReaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbReaders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbReaders.Enabled = false;
             this.cbReaders.FormattingEnabled = true;
@@ -325,9 +364,11 @@ namespace QRcodeHelper
             this.cbReaders.Name = "cbReaders";
             this.cbReaders.Size = new System.Drawing.Size(262, 23);
             this.cbReaders.TabIndex = 6;
-            // 
+            //
             // DataText
-            // 
+            //
+            this.DataText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DataText.BackColor = System.Drawing.Color.FromArgb(245, 246, 250);
             this.DataText.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.DataText.Location = new System.Drawing.Point(15, 185);
@@ -355,9 +396,10 @@ namespace QRcodeHelper
             this.btnOn.Text = "触发";
             this.btnOn.UseVisualStyleBackColor = false;
             this.btnOn.Click += new System.EventHandler(this.btnON_Click);
-            // 
+            //
             // SctBtn
-            // 
+            //
+            this.SctBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SctBtn.Appearance = System.Windows.Forms.Appearance.Button;
             this.SctBtn.AutoSize = true;
             this.SctBtn.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
@@ -373,9 +415,11 @@ namespace QRcodeHelper
             this.SctBtn.Text = "连接设备";
             this.SctBtn.UseVisualStyleBackColor = false;
             this.SctBtn.CheckedChanged += new System.EventHandler(this.SctBtn_CheckedChanged);
-            // 
+            //
             // cbNics
-            // 
+            //
+            this.cbNics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbNics.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbNics.FormattingEnabled = true;
             this.cbNics.Location = new System.Drawing.Point(7, 30);
@@ -383,9 +427,10 @@ namespace QRcodeHelper
             this.cbNics.Name = "cbNics";
             this.cbNics.Size = new System.Drawing.Size(262, 23);
             this.cbNics.TabIndex = 9;
-            // 
+            //
             // SchBtn
-            // 
+            //
+            this.SchBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SchBtn.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.SchBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SchBtn.FlatAppearance.BorderSize = 0;
@@ -446,9 +491,12 @@ namespace QRcodeHelper
             this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 14;
             this.label6.Text = "实时画面：";
-            // 
+            //
             // liveviewForm1
-            // 
+            //
+            this.liveviewForm1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.liveviewForm1.BackColor = System.Drawing.Color.Black;
             this.liveviewForm1.BinningType = Keyence.AutoID.SDK.LiveviewForm.ImageBinningType.OneQuarter;
             this.liveviewForm1.ImageFormat = Keyence.AutoID.SDK.LiveviewForm.ImageFormatType.Jpeg;
@@ -476,17 +524,30 @@ namespace QRcodeHelper
             this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Controls.Add(this.panel2);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(52, 73, 94);
             this.groupBox2.Location = new System.Drawing.Point(380, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(5);
-            this.groupBox2.Size = new System.Drawing.Size(779, 575);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "记录";
-            // 
+            //
+            // tableLayoutMain
+            //
+            this.tableLayoutMain = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutMain.ColumnCount = 2;
+            this.tableLayoutMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutMain.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutMain.Name = "tableLayoutMain";
+            this.tableLayoutMain.RowCount = 1;
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 32F));
+            this.tableLayoutMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68F));
+            this.tableLayoutMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutMain.Size = new System.Drawing.Size(1154, 575);
+            this.tableLayoutMain.TabIndex = 14;
+            //
             // notifyIcon1
             // 
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
@@ -525,14 +586,15 @@ namespace QRcodeHelper
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(236, 240, 241);
             this.ClientSize = new System.Drawing.Size(1164, 585);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
+            this.tableLayoutMain.Controls.Add(this.groupBox1, 0, 0);
+            this.tableLayoutMain.Controls.Add(this.groupBox2, 1, 0);
+            this.Controls.Add(this.tableLayoutMain);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = true;
-            this.MinimumSize = new System.Drawing.Size(900, 500);
+            this.MinimumSize = new System.Drawing.Size(960, 540);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -545,6 +607,7 @@ namespace QRcodeHelper
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.tableLayoutMain.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -582,6 +645,8 @@ namespace QRcodeHelper
         private Keyence.AutoID.SDK.LiveviewForm liveviewForm1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnOff;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutMain;
+        private System.Windows.Forms.TableLayoutPanel queryTableLayout;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mlShowFrm;
