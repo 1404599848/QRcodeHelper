@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +16,7 @@ namespace QRcodeHelper
     {
         正常 = 0,
         重码 = 1,
-        漏码 = 2
+        漏码 = 2,
+        跳号 = 3
     }
 }

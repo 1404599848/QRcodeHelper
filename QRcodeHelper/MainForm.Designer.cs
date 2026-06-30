@@ -61,6 +61,9 @@ namespace QRcodeHelper
             this.SchBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnOff = new System.Windows.Forms.Button();
+            this.btnSkip = new System.Windows.Forms.Button();
+            this.btnDismissAlert = new System.Windows.Forms.Button();
+            this.btnConfig = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.liveviewForm1 = new Keyence.AutoID.SDK.LiveviewForm();
             this.label7 = new System.Windows.Forms.Label();
@@ -261,7 +264,8 @@ namespace QRcodeHelper
             this.cbAlertType.Items.AddRange(new object[] {
             "全部",
             "重码",
-            "漏码"});
+            "漏码",
+            "跳号"});
             this.cbAlertType.Location = new System.Drawing.Point(3, 105);
             this.cbAlertType.Name = "cbAlertType";
             this.cbAlertType.Size = new System.Drawing.Size(108, 23);
@@ -428,14 +432,14 @@ namespace QRcodeHelper
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DataText.BackColor = System.Drawing.Color.FromArgb(245, 246, 250);
             this.DataText.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.DataText.Location = new System.Drawing.Point(15, 185);
+            this.DataText.Location = new System.Drawing.Point(15, 195);
             this.DataText.Margin = new System.Windows.Forms.Padding(4);
             this.DataText.MaxLength = 10;
             this.DataText.Multiline = true;
             this.DataText.Name = "DataText";
             this.DataText.ReadOnly = true;
             this.DataText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.DataText.Size = new System.Drawing.Size(317, 62);
+            this.DataText.Size = new System.Drawing.Size(317, 80);
             this.DataText.TabIndex = 5;
             // 
             // btnOn
@@ -448,7 +452,7 @@ namespace QRcodeHelper
             this.btnOn.Location = new System.Drawing.Point(15, 110);
             this.btnOn.Margin = new System.Windows.Forms.Padding(4);
             this.btnOn.Name = "btnOn";
-            this.btnOn.Size = new System.Drawing.Size(107, 32);
+            this.btnOn.Size = new System.Drawing.Size(95, 26);
             this.btnOn.TabIndex = 4;
             this.btnOn.Text = "触发";
             this.btnOn.UseVisualStyleBackColor = false;
@@ -506,6 +510,9 @@ namespace QRcodeHelper
             // 
             this.groupBox1.BackColor = System.Drawing.Color.White;
             this.groupBox1.Controls.Add(this.btnOff);
+            this.groupBox1.Controls.Add(this.btnSkip);
+            this.groupBox1.Controls.Add(this.btnDismissAlert);
+            this.groupBox1.Controls.Add(this.btnConfig);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.liveviewForm1);
             this.groupBox1.Controls.Add(this.label7);
@@ -533,19 +540,61 @@ namespace QRcodeHelper
             this.btnOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOff.FlatAppearance.BorderSize = 0;
             this.btnOff.ForeColor = System.Drawing.Color.White;
-            this.btnOff.Location = new System.Drawing.Point(147, 110);
+            this.btnOff.Location = new System.Drawing.Point(125, 110);
             this.btnOff.Margin = new System.Windows.Forms.Padding(4);
             this.btnOff.Name = "btnOff";
-            this.btnOff.Size = new System.Drawing.Size(107, 32);
+            this.btnOff.Size = new System.Drawing.Size(95, 26);
             this.btnOff.TabIndex = 15;
             this.btnOff.Text = "触发结束";
             this.btnOff.UseVisualStyleBackColor = false;
             this.btnOff.Click += new System.EventHandler(this.btnOff_Click);
             // 
+            // btnSkip
+            // 
+            this.btnSkip.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            this.btnSkip.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSkip.FlatAppearance.BorderSize = 0;
+            this.btnSkip.ForeColor = System.Drawing.Color.White;
+            this.btnSkip.Location = new System.Drawing.Point(15, 140);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(95, 26);
+            this.btnSkip.TabIndex = 16;
+            this.btnSkip.Text = "跳号";
+            this.btnSkip.UseVisualStyleBackColor = false;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
+            // 
+            // btnDismissAlert
+            // 
+            this.btnDismissAlert.BackColor = System.Drawing.Color.FromArgb(231, 76, 60);
+            this.btnDismissAlert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDismissAlert.FlatAppearance.BorderSize = 0;
+            this.btnDismissAlert.ForeColor = System.Drawing.Color.White;
+            this.btnDismissAlert.Location = new System.Drawing.Point(125, 140);
+            this.btnDismissAlert.Name = "btnDismissAlert";
+            this.btnDismissAlert.Size = new System.Drawing.Size(95, 26);
+            this.btnDismissAlert.TabIndex = 17;
+            this.btnDismissAlert.Text = "消警";
+            this.btnDismissAlert.UseVisualStyleBackColor = false;
+            this.btnDismissAlert.Click += new System.EventHandler(this.btnDismissAlert_Click);
+            // 
+            // btnConfig
+            // 
+            this.btnConfig.BackColor = System.Drawing.Color.FromArgb(149, 165, 166);
+            this.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfig.FlatAppearance.BorderSize = 0;
+            this.btnConfig.ForeColor = System.Drawing.Color.White;
+            this.btnConfig.Location = new System.Drawing.Point(235, 110);
+            this.btnConfig.Name = "btnConfig";
+            this.btnConfig.Size = new System.Drawing.Size(80, 26);
+            this.btnConfig.TabIndex = 19;
+            this.btnConfig.Text = "配置";
+            this.btnConfig.UseVisualStyleBackColor = false;
+            this.btnConfig.Click += new System.EventHandler(this.btnConfig_Click);
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 270);
+            this.label6.Location = new System.Drawing.Point(12, 280);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 14;
@@ -561,7 +610,7 @@ namespace QRcodeHelper
             this.liveviewForm1.ImageFormat = Keyence.AutoID.SDK.LiveviewForm.ImageFormatType.Jpeg;
             this.liveviewForm1.ImageQuality = 5;
             this.liveviewForm1.IpAddress = "192.168.100.100";
-            this.liveviewForm1.Location = new System.Drawing.Point(15, 295);
+            this.liveviewForm1.Location = new System.Drawing.Point(15, 305);
             this.liveviewForm1.Margin = new System.Windows.Forms.Padding(5);
             this.liveviewForm1.Name = "liveviewForm1";
             this.liveviewForm1.PullTimeSpan = 100;
@@ -572,7 +621,7 @@ namespace QRcodeHelper
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 166);
+            this.label7.Location = new System.Drawing.Point(12, 172);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(82, 15);
             this.label7.TabIndex = 12;
@@ -707,8 +756,11 @@ namespace QRcodeHelper
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label7;
         private Keyence.AutoID.SDK.LiveviewForm liveviewForm1;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnOff;
+        private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.Button btnDismissAlert;
+        private System.Windows.Forms.Button btnConfig;
+        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TableLayoutPanel tableLayoutMain;
         private System.Windows.Forms.TableLayoutPanel queryTableLayout;
         private System.Windows.Forms.NotifyIcon notifyIcon1;

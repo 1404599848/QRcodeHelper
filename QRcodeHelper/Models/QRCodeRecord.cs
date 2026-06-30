@@ -26,6 +26,7 @@ namespace QRcodeHelper.Models
                 {
                     case 1: return "重码";
                     case 2: return "漏码";
+                    case 3: return "跳号";
                     default: return "正常";
                 }
             }

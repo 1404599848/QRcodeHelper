@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -56,6 +56,7 @@ namespace QRcodeHelper
             dataGridView1.RowHeadersVisible = false;
             DatabaseService.InitSQLiteDb();
             DatabaseService.MigrateDB();
+            AppConfig.Load();
             //DatabaseService.TestData();
 
             if (!Directory.Exists("./Exports"))
@@ -294,6 +295,8 @@ namespace QRcodeHelper
                 sqlAlertType = "AND AlertType = 1";
             else if (cbAlertType.Text == "漏码")
                 sqlAlertType = "AND AlertType = 2";
+            else if (cbAlertType.Text == "跳号")
+                sqlAlertType = "AND AlertType = 3";
 
             using (var conn = DatabaseService.CreateConnection())
             {
@@ -323,6 +326,8 @@ namespace QRcodeHelper
                 sqlAlertType = "AND AlertType = 1";
             else if (cbAlertType.Text == "漏码")
                 sqlAlertType = "AND AlertType = 2";
+            else if (cbAlertType.Text == "跳号")
+                sqlAlertType = "AND AlertType = 3";
 
             using (var conn = DatabaseService.CreateConnection())
             {
@@ -386,6 +391,86 @@ namespace QRcodeHelper
             this.ShowInTaskbar = true;
             //托盘区图标隐藏
             notifyIcon1.Visible = true;
+        }
+
+        private void btnSkip_Click(object sender, EventArgs e)
+        {
+            // 在当前批次插入一条跳号记录
+            using (var conn = DatabaseService.CreateConnection())
+            {
+                var lastRecord = conn.QueryFirstOrDefault<QRCodeRecord>(@"SELECT * FROM QRCodeRecords ORDER BY Id DESC LIMIT 1");
+                if (lastRecord != null && lastRecord.QRCode.Length >= 4)
+                {
+                    var seqNo = lastRecord.QRCode.Substring(lastRecord.QRCode.Length - 4);
+                    var batchKey = lastRecord.QRCode.Substring(0, lastRecord.QRCode.Length - 4);
+                    if (int.TryParse(seqNo, out int lastNum))
+                    {
+                        var newSeq = lastNum + 1;
+                        var skipRecord = new QRCodeRecord()
+                        {
+                            QRCode = $@"{batchKey}{newSeq:D4}",
+                            Level = "-",
+                            AlertType = (int)QRcodeHelper.AlertType.跳号
+                        };
+                        conn.Execute(@"INSERT INTO QRCodeRecords(QRCode, Level, CreationTime, IsPassed, AlertType) VALUES(@QRCode, @Level, @CreationTime, @IsPassed, @AlertType)", skipRecord);
+                        DataText.Text = $@"[{DateTime.Now}]  跳号: {skipRecord.QRCode}";
+                        BtnQuery_Click(null, null);
+                        return;
+                    }
+                }
+                DataText.Text = $@"[{DateTime.Now}]  无记录可跳号";
+            }
+        }
+
+        private void btnDismissAlert_Click(object sender, EventArgs e)
+        {
+            _alertActive = false;
+            btnDismissAlert.BackColor = System.Drawing.Color.FromArgb(231, 76, 60); // 恢复红色
+            DataText.Text = $@"[{DateTime.Now}]  警报已解除";
+        }
+
+        private bool _alertActive = false;
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            using (var pwdForm = new Form())
+            {
+                pwdForm.Text = "验证";
+                pwdForm.Size = new System.Drawing.Size(280, 140);
+                pwdForm.StartPosition = FormStartPosition.CenterParent;
+                pwdForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                pwdForm.MaximizeBox = false;
+                pwdForm.MinimizeBox = false;
+
+                var lbl = new Label() { Text = "请输入配置密码：", Location = new System.Drawing.Point(15, 15), Size = new System.Drawing.Size(200, 20) };
+                var txt = new TextBox() { Location = new System.Drawing.Point(15, 40), Size = new System.Drawing.Size(230, 22), UseSystemPasswordChar = true };
+                var btn = new Button() { Text = "确认", Location = new System.Drawing.Point(90, 70), Size = new System.Drawing.Size(80, 25) };
+
+                btn.Click += (s, ev) => { pwdForm.Close(); };
+                btn.DialogResult = DialogResult.OK;
+
+                pwdForm.Controls.Add(lbl);
+                pwdForm.Controls.Add(txt);
+                pwdForm.Controls.Add(btn);
+                pwdForm.AcceptButton = btn;
+
+                if (pwdForm.ShowDialog(this) == DialogResult.OK)
+                {
+                    AppConfig.Load();
+                    if (txt.Text == AppConfig.ConfigPassword)
+                    {
+                        using (var cfg = new ConfigFrm())
+                        {
+                            cfg.ShowDialog(this);
+                        }
+                        AppConfig.Load();
+                    }
+                    else
+                    {
+                        MessageBox.Show("密码错误", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
         }
     }
 }
