@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -55,6 +55,7 @@ namespace QRcodeHelper
             //this.dataGridView1.RowsDefaultCellStyle = headerStyle;
             dataGridView1.RowHeadersVisible = false;
             DatabaseService.InitSQLiteDb();
+            DatabaseService.MigrateDB();
             //DatabaseService.TestData();
 
             if (!Directory.Exists("./Exports"))
@@ -62,6 +63,7 @@ namespace QRcodeHelper
 
             cbIsPassed.SelectedIndex = 0;
             cbLevel.SelectedIndex = 0;
+            cbAlertType.SelectedIndex = 0;
 
             m_nicList = m_searcher.ListUpNic();
             if (m_nicList != null && m_nicList.Count > 0)
@@ -178,11 +180,35 @@ namespace QRcodeHelper
                     QRCode = infos[0],
                     Level = infos[1].Substring(0, 1)
                 };
+                // 漏码/重码检测
+                if (record.QRCode.Length >= 4)
+                {
+                    var seqNo = record.QRCode.Substring(record.QRCode.Length - 4);
+                    var batchKey = record.QRCode.Substring(0, record.QRCode.Length - 4);
+                    using (var conn = DatabaseService.CreateConnection())
+                    {
+                        var lastRecord = conn.QueryFirstOrDefault<QRCodeRecord>(
+                            @"SELECT * FROM QRCodeRecords 
+                              WHERE QRCode LIKE @BatchKey || '%'
+                              ORDER BY Id DESC LIMIT 1",
+                            new { BatchKey = batchKey });
+
+                        if (lastRecord != null)
+                        {
+                            var lastSeq = lastRecord.QRCode.Substring(lastRecord.QRCode.Length - 4);
+                            if (lastSeq == seqNo)
+                                record.AlertType = (int)QRcodeHelper.AlertType.重码;
+                            else if (int.TryParse(lastSeq, out int lastNum) && int.TryParse(seqNo, out int curNum) && curNum > lastNum + 1)
+                                record.AlertType = (int)QRcodeHelper.AlertType.漏码;
+                        }
+                    }
+                }
+
                 using (var conn = DatabaseService.CreateConnection())
                 {
                     conn.Execute(@"
                     INSERT INTO QRCodeRecords VALUES(
-                        NULL, @QRCode, @Level, @CreationTime, @IsPassed
+                        NULL, @QRCode, @Level, @CreationTime, @IsPassed, @AlertType
                     )", record);
                 }
 
@@ -263,10 +289,15 @@ namespace QRcodeHelper
             if (cbLevel.Text != "全部")
                 sqlLevel = $@"AND Level = '{cbLevel.Text}'";
 
+            string sqlAlertType = null;
+            if (cbAlertType.Text == "重码")
+                sqlAlertType = "AND AlertType = 1";
+            else if (cbAlertType.Text == "漏码")
+                sqlAlertType = "AND AlertType = 2";
 
             using (var conn = DatabaseService.CreateConnection())
             {
-                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} AND QRCode like '%{txtCode.Text}%'", new { beginTime, endTime});
+                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} {sqlAlertType} AND QRCode like '%{txtCode.Text}%'", new { beginTime, endTime});
 
                 dataGridView1.DataSource = records;
             }
@@ -287,10 +318,15 @@ namespace QRcodeHelper
             if (cbLevel.Text != "全部")
                 sqlLevel = $@"AND Level = '{cbLevel.Text}'";
 
+            string sqlAlertType = null;
+            if (cbAlertType.Text == "重码")
+                sqlAlertType = "AND AlertType = 1";
+            else if (cbAlertType.Text == "漏码")
+                sqlAlertType = "AND AlertType = 2";
 
             using (var conn = DatabaseService.CreateConnection())
             {
-                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} AND QRCode like '%{txtCode.Text}%'", new { beginTime, endTime });
+                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} {sqlAlertType} AND QRCode like '%{txtCode.Text}%'", new { beginTime, endTime });
 
                 var dataMap = new Dictionary<string, string>()
                 {
@@ -299,6 +335,7 @@ namespace QRcodeHelper
                     { "CreationTime", "创建时间" },
                     { "Level", "判定等级" },
                     { "IsPassed", "是否通过" },
+                    { "AlertTypeDisplay", "警报类型" },
                 };
 
                 var excelFileGenerator =
@@ -312,25 +349,10 @@ namespace QRcodeHelper
 
         private void btnC_Click(object sender, EventArgs e)
         {
-            using (var conn = DatabaseService.CreateConnection())
-            {
-                Random random = new Random();
-                var record = new QRCodeRecord()
-                {
-                    QRCode = "Test" + random.Next(100, 1000),
-                    Level = "C"
-                };
-
-
-                DataText.Text = $@"二维码{record.QRCode}, 等级{record.Level}";
-                conn.Execute(@"
-                    INSERT INTO QRCodeRecords VALUES(
-                        NULL, @QRCode, @Level, @CreationTime, @IsPassed
-                    )", record);
-
-                var frm = new InfoFrm($@"二维码:{record.QRCode}", "C");
-                frm.ShowDialog();
-            }
+            DatabaseService.TestData();
+            DataText.Text = $@"[{DateTime.Now}]  测试数据已插入";
+            // 自动刷新查询
+            BtnQuery_Click(null, null);
         }
 
         private void mlQuit_Click(object sender, EventArgs e)

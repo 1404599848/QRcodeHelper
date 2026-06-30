@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,21 @@ namespace QRcodeHelper.Models
         public string Level { get; set; }
 
         public DateTime CreationTime { get; set; } = DateTime.Now;
+
+        public int AlertType { get; set; } = 0;
+
+        public string AlertTypeDisplay
+        {
+            get
+            {
+                switch (AlertType)
+                {
+                    case 1: return "重码";
+                    case 2: return "漏码";
+                    default: return "正常";
+                }
+            }
+        }
 
         public IsPassed IsPassed 
         { 

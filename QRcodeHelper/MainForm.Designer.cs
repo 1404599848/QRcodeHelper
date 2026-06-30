@@ -36,6 +36,7 @@ namespace QRcodeHelper
             this.ColCreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColIsPassed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColAlertType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.cbLevel = new System.Windows.Forms.ComboBox();
@@ -49,6 +50,9 @@ namespace QRcodeHelper
             this.txtCode = new System.Windows.Forms.TextBox();
             this.btnExport = new System.Windows.Forms.Button();
             this.BtnQuery = new System.Windows.Forms.Button();
+            this.btnC = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cbAlertType = new System.Windows.Forms.ComboBox();
             this.cbReaders = new System.Windows.Forms.ComboBox();
             this.DataText = new System.Windows.Forms.TextBox();
             this.btnOn = new System.Windows.Forms.Button();
@@ -76,6 +80,7 @@ namespace QRcodeHelper
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
@@ -90,7 +95,8 @@ namespace QRcodeHelper
             this.ColQRCode,
             this.ColCreationTime,
             this.ColLevel,
-            this.ColIsPassed});
+            this.ColIsPassed,
+            this.ColAlertType});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.FromArgb(220, 220, 220);
@@ -168,6 +174,16 @@ namespace QRcodeHelper
             this.ColIsPassed.MinimumWidth = 80;
             this.ColIsPassed.Name = "ColIsPassed";
             this.ColIsPassed.ReadOnly = true;
+            //
+            // ColAlertType
+            //
+            this.ColAlertType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ColAlertType.DataPropertyName = "AlertTypeDisplay";
+            this.ColAlertType.FillWeight = 15;
+            this.ColAlertType.HeaderText = "警报类型";
+            this.ColAlertType.MinimumWidth = 80;
+            this.ColAlertType.Name = "ColAlertType";
+            this.ColAlertType.ReadOnly = true;
             // 
             // panel2
             // 
@@ -175,7 +191,7 @@ namespace QRcodeHelper
             // queryTableLayout
             //
             this.queryTableLayout = new System.Windows.Forms.TableLayoutPanel();
-            this.queryTableLayout.ColumnCount = 7;
+            this.queryTableLayout.ColumnCount = 9;
             this.queryTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.queryTableLayout.Location = new System.Drawing.Point(0, 0);
             this.queryTableLayout.Name = "queryTableLayout";
@@ -188,6 +204,8 @@ namespace QRcodeHelper
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.queryTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -197,13 +215,16 @@ namespace QRcodeHelper
             this.queryTableLayout.Controls.Add(this.txtCode, 1, 0);
             this.queryTableLayout.Controls.Add(this.label2, 2, 0);     // 是否通过
             this.queryTableLayout.Controls.Add(this.cbIsPassed, 3, 0);
-            this.queryTableLayout.Controls.Add(this.label5, 4, 0);     // 判定等级
-            this.queryTableLayout.Controls.Add(this.cbLevel, 5, 0);
+            this.queryTableLayout.Controls.Add(this.label8, 4, 0);     // 警报类型
+            this.queryTableLayout.Controls.Add(this.cbAlertType, 5, 0);
+            this.queryTableLayout.Controls.Add(this.label5, 6, 0);     // 判定等级
+            this.queryTableLayout.Controls.Add(this.cbLevel, 7, 0);
             // Row 1
             this.queryTableLayout.Controls.Add(this.label3, 0, 1);     // 时间
             this.queryTableLayout.Controls.Add(this.dtBegin, 1, 1);
             this.queryTableLayout.Controls.Add(this.label4, 2, 1);     // 至
             this.queryTableLayout.Controls.Add(this.dtEnd, 3, 1);
+            this.queryTableLayout.Controls.Add(this.btnC, 4, 1);      // 测试数据
             this.queryTableLayout.Controls.Add(this.BtnQuery, 5, 1);
             this.queryTableLayout.Controls.Add(this.btnExport, 6, 1);
             this.panel2.Controls.Add(this.queryTableLayout);
@@ -222,6 +243,29 @@ namespace QRcodeHelper
             this.label5.TabIndex = 11;
             this.label5.Text = "判定等级";
             // 
+            //
+            // label8
+            //
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 15);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "警报类型";
+            // 
+            //
+            // cbAlertType
+            //
+            this.cbAlertType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbAlertType.FormattingEnabled = true;
+            this.cbAlertType.Items.AddRange(new object[] {
+            "全部",
+            "重码",
+            "漏码"});
+            this.cbAlertType.Location = new System.Drawing.Point(3, 105);
+            this.cbAlertType.Name = "cbAlertType";
+            this.cbAlertType.Size = new System.Drawing.Size(108, 23);
+            this.cbAlertType.TabIndex = 13;
             //
             // cbLevel
             //
@@ -334,6 +378,21 @@ namespace QRcodeHelper
             this.btnExport.Text = "导出";
             this.btnExport.UseVisualStyleBackColor = false;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // btnC
+            // 
+            this.btnC.BackColor = System.Drawing.Color.FromArgb(52, 73, 94);
+            this.btnC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnC.FlatAppearance.BorderSize = 0;
+            this.btnC.ForeColor = System.Drawing.Color.White;
+            this.btnC.Location = new System.Drawing.Point(3, 3);
+            this.btnC.Name = "btnC";
+            this.btnC.Size = new System.Drawing.Size(72, 28);
+            this.btnC.TabIndex = 14;
+            this.btnC.Text = "测试";
+            this.btnC.UseVisualStyleBackColor = false;
+            this.btnC.Click += new System.EventHandler(this.btnC_Click);
+            // 
             //
             // BtnQuery
             //
@@ -618,6 +677,7 @@ namespace QRcodeHelper
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button BtnQuery;
+        private System.Windows.Forms.Button btnC;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtCode;
         private System.Windows.Forms.Button btnExport;
@@ -633,6 +693,9 @@ namespace QRcodeHelper
         private System.Windows.Forms.DataGridViewTextBoxColumn ColLevel;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColIsPassed;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cbAlertType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColAlertType;
         private System.Windows.Forms.ComboBox cbLevel;
         private System.Windows.Forms.ComboBox cbReaders;
         private System.Windows.Forms.TextBox DataText;

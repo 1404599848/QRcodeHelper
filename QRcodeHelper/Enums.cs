@@ -11,4 +11,11 @@ namespace QRcodeHelper
         通过 = 0,
         未通过 = 1
     }
+
+    public enum AlertType
+    {
+        正常 = 0,
+        重码 = 1,
+        漏码 = 2
+    }
 }
