@@ -120,54 +120,54 @@ namespace QRcodeHelper
             this.dataGridView1.TabIndex = 0;
             // 
             // ColId
-            // 
-            this.ColId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            //
+            this.ColId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColId.DataPropertyName = "Id";
+            this.ColId.FillWeight = 10;
             this.ColId.HeaderText = "序号";
-            this.ColId.MinimumWidth = 6;
+            this.ColId.MinimumWidth = 50;
             this.ColId.Name = "ColId";
             this.ColId.ReadOnly = true;
-            this.ColId.Width = 66;
-            // 
+            //
             // ColQRCode
-            // 
-            this.ColQRCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            //
+            this.ColQRCode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColQRCode.DataPropertyName = "QRCode";
+            this.ColQRCode.FillWeight = 30;
             this.ColQRCode.HeaderText = "二维码";
-            this.ColQRCode.MinimumWidth = 6;
+            this.ColQRCode.MinimumWidth = 100;
             this.ColQRCode.Name = "ColQRCode";
             this.ColQRCode.ReadOnly = true;
-            this.ColQRCode.Width = 81;
-            // 
+            //
             // ColCreationTime
-            // 
-            this.ColCreationTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            //
+            this.ColCreationTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColCreationTime.DataPropertyName = "CreationTime";
+            this.ColCreationTime.FillWeight = 25;
             this.ColCreationTime.HeaderText = "创建时间";
-            this.ColCreationTime.MinimumWidth = 6;
+            this.ColCreationTime.MinimumWidth = 120;
             this.ColCreationTime.Name = "ColCreationTime";
             this.ColCreationTime.ReadOnly = true;
-            this.ColCreationTime.Width = 96;
-            // 
+            //
             // ColLevel
-            // 
-            this.ColLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            //
+            this.ColLevel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColLevel.DataPropertyName = "Level";
+            this.ColLevel.FillWeight = 15;
             this.ColLevel.HeaderText = "判定等级";
-            this.ColLevel.MinimumWidth = 6;
+            this.ColLevel.MinimumWidth = 80;
             this.ColLevel.Name = "ColLevel";
             this.ColLevel.ReadOnly = true;
-            this.ColLevel.Width = 96;
-            // 
+            //
             // ColIsPassed
-            // 
-            this.ColIsPassed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            //
+            this.ColIsPassed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ColIsPassed.DataPropertyName = "IsPassed";
+            this.ColIsPassed.FillWeight = 15;
             this.ColIsPassed.HeaderText = "是否通过";
-            this.ColIsPassed.MinimumWidth = 6;
+            this.ColIsPassed.MinimumWidth = 80;
             this.ColIsPassed.Name = "ColIsPassed";
             this.ColIsPassed.ReadOnly = true;
-            this.ColIsPassed.Width = 96;
             // 
             // panel2
             // 
@@ -186,7 +186,7 @@ namespace QRcodeHelper
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
+            this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.queryTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -322,7 +322,6 @@ namespace QRcodeHelper
             //
             // btnExport
             //
-            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExport.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.btnExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExport.FlatAppearance.BorderSize = 0;
@@ -338,7 +337,6 @@ namespace QRcodeHelper
             //
             // BtnQuery
             //
-            this.BtnQuery.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnQuery.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.BtnQuery.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnQuery.FlatAppearance.BorderSize = 0;
@@ -401,18 +399,19 @@ namespace QRcodeHelper
             //
             this.SctBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SctBtn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.SctBtn.AutoSize = true;
             this.SctBtn.BackColor = System.Drawing.Color.FromArgb(52, 152, 219);
             this.SctBtn.Enabled = false;
             this.SctBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SctBtn.FlatAppearance.BorderSize = 0;
             this.SctBtn.ForeColor = System.Drawing.Color.White;
-            this.SctBtn.Location = new System.Drawing.Point(278, 65);
+            this.SctBtn.Location = new System.Drawing.Point(277, 65);
             this.SctBtn.Margin = new System.Windows.Forms.Padding(4);
             this.SctBtn.Name = "SctBtn";
-            this.SctBtn.Size = new System.Drawing.Size(77, 25);
+            this.SctBtn.Size = new System.Drawing.Size(77, 29);
             this.SctBtn.TabIndex = 8;
             this.SctBtn.Text = "连接设备";
+            this.SctBtn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.SctBtn.CheckAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.SctBtn.UseVisualStyleBackColor = false;
             this.SctBtn.CheckedChanged += new System.EventHandler(this.SctBtn_CheckedChanged);
             //
@@ -506,7 +505,7 @@ namespace QRcodeHelper
             this.liveviewForm1.Margin = new System.Windows.Forms.Padding(5);
             this.liveviewForm1.Name = "liveviewForm1";
             this.liveviewForm1.PullTimeSpan = 100;
-            this.liveviewForm1.Size = new System.Drawing.Size(331, 272);
+            this.liveviewForm1.Size = new System.Drawing.Size(331, 260);
             this.liveviewForm1.TabIndex = 13;
             this.liveviewForm1.TimeoutMs = 2000;
             // 
