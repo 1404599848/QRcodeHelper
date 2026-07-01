@@ -170,6 +170,7 @@
     <Compile Include="Services\DatabaseService.cs" />
     <Compile Include="Services\AppConfig.cs" />
     <Compile Include="Services\Activation.cs" />
+    <Compile Include="Services\RelayController.cs" />
     <Compile Include="ConfigFrm.cs">
       <SubType>Form</SubType>
     </Compile>

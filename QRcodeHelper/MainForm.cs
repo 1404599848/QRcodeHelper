@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿﻿﻿﻿﻿﻿﻿﻿﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -20,6 +20,7 @@ namespace QRcodeHelper
 {
     public partial class MainForm : Form
     { 
+        private RelayController _relay = new RelayController();
         private ReaderAccessor m_reader = new ReaderAccessor();
         private ReaderSearcher m_searcher = new ReaderSearcher();
         List<NicSearchResult> m_nicList = new List<NicSearchResult>();
@@ -57,6 +58,7 @@ namespace QRcodeHelper
             DatabaseService.InitSQLiteDb();
             DatabaseService.MigrateDB();
             AppConfig.Load();
+            _relay.ConnectFromConfig();
             //DatabaseService.TestData();
 
             if (!Directory.Exists("./Exports"))
@@ -213,6 +215,14 @@ namespace QRcodeHelper
                     )", record);
                 }
 
+                // 三色灯控制
+                if (record.AlertType == (int)QRcodeHelper.AlertType.重码)
+                    _relay.SetDuplicateAlert();
+                else if (record.AlertType == (int)QRcodeHelper.AlertType.漏码)
+                    _relay.SetMissingAlert();
+                else if (record.IsPassed == IsPassed.通过)
+                    _relay.SetNormal();
+
                 if (record.IsPassed == IsPassed.通过)
                     MessageBeep(beepOk);
                 else
@@ -300,7 +310,8 @@ namespace QRcodeHelper
 
             using (var conn = DatabaseService.CreateConnection())
             {
-                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} {sqlAlertType} AND QRCode like '%{txtCode.Text}%'", new { beginTime, endTime});
+                var codeParam = $"%{txtCode.Text}%";
+                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} {sqlAlertType} AND QRCode like @Code", new { beginTime, endTime, Code = codeParam });
 
                 dataGridView1.DataSource = records;
             }
@@ -331,7 +342,8 @@ namespace QRcodeHelper
 
             using (var conn = DatabaseService.CreateConnection())
             {
-                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} {sqlAlertType} AND QRCode like '%{txtCode.Text}%'", new { beginTime, endTime });
+                var codeParam = $"%{txtCode.Text}%";
+                var records = conn.Query<QRCodeRecord>($@"SELECT * FROM QRCodeRecords WHERE CreationTime >= @beginTime AND CreationTime < @endTime {sqlIsPassed} {sqlLevel} {sqlAlertType} AND QRCode like @Code", new { beginTime, endTime, Code = codeParam });
 
                 var dataMap = new Dictionary<string, string>()
                 {
@@ -364,6 +376,7 @@ namespace QRcodeHelper
         {
             if (MessageBox.Show("是否确认退出程序？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
+                _relay.Dispose();
                 m_reader.ExecCommand("LOFF");
                 m_reader.Dispose();
                 m_searcher.Dispose();
@@ -425,6 +438,7 @@ namespace QRcodeHelper
         private void btnDismissAlert_Click(object sender, EventArgs e)
         {
             _alertActive = false;
+            _relay.DismissAlert();
             btnDismissAlert.BackColor = System.Drawing.Color.FromArgb(231, 76, 60); // 恢复红色
             DataText.Text = $@"[{DateTime.Now}]  警报已解除";
         }
